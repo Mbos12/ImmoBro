@@ -1,0 +1,47 @@
+name: Test listing refresh
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Refresh listings
+        run: npm run refresh
+
+      - name: Validate dashboard files
+        run: |
+          node --check app.js
+          node --check scripts/refresh-listings.mjs
+          node -e "const fs=require('fs'); for (const f of ['data/searches.json','data/listings.json','data/refresh-log.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
+
+      - name: Commit refreshed data
+        run: |
+          if git diff --quiet -- data/listings.json data/refresh-log.json; then
+            echo "No listing changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/listings.json data/refresh-log.json
+          git commit -m "Refresh apartment listings"
+          git push
