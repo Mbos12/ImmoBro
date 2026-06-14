@@ -21,7 +21,7 @@ Opening `index.html` directly from Finder is not recommended because browsers us
 - `app.js` loads and renders listings, handles filters, and manages the shitlist.
 - `data/listings.json` contains the current normalized listing data.
 - `data/searches.json` records reusable search criteria and source URLs/place IDs.
-- `scripts/refresh-listings.mjs` refreshes listings from the configured sources.
+- `scripts/refresh-listings.mjs` contains reusable parsing and merge logic for refreshes.
 - `docs/immo_search_pattern.md` documents the source-specific query patterns.
 
 ## How the dashboard works
@@ -34,17 +34,19 @@ The shitlist currently lives in browser `localStorage`. That is simple and priva
 
 ## Daily refresh
 
-The refresh is scheduled as a Codex automation at 08:00 and 20:00 Belgium time. The automation runs in the local workspace, executes the refresh script, commits changed JSON files, and pushes those data updates to GitHub.
+The refresh is scheduled as a Codex automation at 08:00 and 20:00 Belgium time. The automation runs in the local workspace and uses the Codex in-app browser workflow to open the configured searches, read the visible listing pages, update the JSON data, and push changed data back to GitHub.
 
 The refresh flow is:
 
 1. Read search criteria from `data/searches.json`.
-2. Query Immoweb, Zimmo, and Immoscoop with Playwright.
+2. Query Immoweb, Zimmo, and Immoscoop with the Codex in-app browser.
 3. Normalize all listings into the same JSON shape.
 4. Skip price-on-request listings, service flats, unknown/below-50m2 surfaces, over-budget listings, and EPC labels worse than C when exposed.
 5. Merge fresh results into `data/listings.json`.
 6. Merge new listings into the existing JSON without deleting existing rows.
 7. Commit `data/listings.json` and `data/refresh-log.json` back to GitHub only when data changed.
+
+The `scripts/refresh-listings.mjs` file remains useful as a helper/reference for parsing, normalization, and merge rules. The scheduled automation should still use browser-visible search pages as the primary source of truth.
 
 Images are stored as remote image URLs, not copied into the repo. That keeps the repository small and avoids committing large binary files every day.
 
