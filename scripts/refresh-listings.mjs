@@ -42,8 +42,8 @@ function cityFromPlace(place) {
   if (/Wijgmaal/i.test(place)) return "Wijgmaal";
   if (/Wilsele/i.test(place)) return "Leuven";
   if (/Kermt|Kortessem/i.test(place)) return "Hasselt";
-  if (/Leuven/i.test(place)) return "Leuven";
   if (/Diest/i.test(place)) return "Diest";
+  if (/Leuven/i.test(place)) return "Leuven";
   if (/Genk/i.test(place)) return "Genk";
   if (/Hasselt/i.test(place)) return "Hasselt";
   return "Other";
@@ -130,7 +130,7 @@ function mergeListings(existing, fresh) {
 
 async function safeGoto(page, url) {
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(6000);
 }
 
 async function scrapeImmoscoop(page, city, url, criteria) {
