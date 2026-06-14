@@ -1,7 +1,11 @@
-name: Test listing refresh
+name: Refresh listings
 
 on:
   workflow_dispatch:
+  schedule:
+    # GitHub Actions cron is UTC. Running at 06:00 and 07:00 UTC lets the
+    # workflow enforce 08:00 Europe/Brussels across DST changes.
+    - cron: "0 6,7 * * *"
 
 permissions:
   contents: write
@@ -11,30 +15,54 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check whether this is the Belgium refresh hour
+        id: brussels-time
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "Manual run; refreshing now."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          HOUR=$(TZ=Europe/Brussels date +%H)
+          echo "hour=$HOUR" >> "$GITHUB_OUTPUT"
+          if [ "$HOUR" != "08" ]; then
+            echo "Not 08:00 in Belgium; skipping."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check out repository
+        if: steps.brussels-time.outputs.run == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Node.js
+        if: steps.brussels-time.outputs.run == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Install dependencies
+        if: steps.brussels-time.outputs.run == 'true'
         run: npm ci
 
       - name: Install Chromium
+        if: steps.brussels-time.outputs.run == 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Refresh listings
+        if: steps.brussels-time.outputs.run == 'true'
         run: npm run refresh
 
       - name: Validate dashboard files
+        if: steps.brussels-time.outputs.run == 'true'
         run: |
           node --check app.js
           node --check scripts/refresh-listings.mjs
           node -e "const fs=require('fs'); for (const f of ['data/searches.json','data/listings.json','data/refresh-log.json']) JSON.parse(fs.readFileSync(f,'utf8')); console.log('json ok')"
 
       - name: Commit refreshed data
+        if: steps.brussels-time.outputs.run == 'true'
         run: |
           if git diff --quiet -- data/listings.json data/refresh-log.json; then
             echo "No listing changes."

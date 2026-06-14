@@ -32,21 +32,21 @@ The dashboard is a static GitHub Pages app. It does not have a backend server. O
 
 The shitlist currently lives in browser `localStorage`. That is simple and private, but it is local to one browser/device. For cross-device shitlist sync, add a small database such as Supabase later.
 
-## Daily refresh
+## Daily Refresh
 
-The refresh is scheduled as a Codex automation at 08:00 and 20:00 Belgium time. The automation runs in the local workspace and uses the Codex in-app browser workflow to open the configured searches, read the visible listing pages, update the JSON data, and push changed data back to GitHub.
+The refresh is scheduled as a GitHub Action at 08:00 Belgium time. GitHub cron runs in UTC, so the workflow wakes at both possible UTC hours and only performs the refresh when the current `Europe/Brussels` hour is 08:00.
 
 The refresh flow is:
 
 1. Read search criteria from `data/searches.json`.
-2. Query Immoweb, Zimmo, and Immoscoop with the Codex in-app browser.
+2. Query Immoweb, Zimmo, and Immoscoop with Playwright in GitHub Actions.
 3. Normalize all listings into the same JSON shape.
 4. Skip price-on-request listings, service flats, unknown/below-50m2 surfaces, over-budget listings, and EPC labels worse than C when exposed.
 5. Merge fresh results into `data/listings.json`.
 6. Merge new listings into the existing JSON without deleting existing rows.
 7. Commit `data/listings.json` and `data/refresh-log.json` back to GitHub only when data changed.
 
-The `scripts/refresh-listings.mjs` file remains useful as a helper/reference for parsing, normalization, and merge rules. The scheduled automation should still use browser-visible search pages as the primary source of truth.
+The Codex browser workflow is still useful for manual checks when a website changes markup. The daily unattended refresh runs in GitHub Actions so it works even when the Mac is closed.
 
 Images are stored as remote image URLs, not copied into the repo. That keeps the repository small and avoids committing large binary files every day.
 
@@ -63,7 +63,7 @@ Supabase is a good next step for user-specific state, especially shitlist/favori
 
 Recommended split:
 
-- Listings over time: `data/listings.json` committed by the Codex automation.
+- Listings over time: `data/listings.json` committed by GitHub Actions.
 - Personal state across devices: Supabase table for shitlist/favorites, protected by Supabase Auth.
 
 ## Where an LLM is useful
@@ -81,7 +81,7 @@ Good LLM tasks:
 
 Tasks that should stay deterministic code:
 
-- Running the 08:00/20:00 refresh.
+- Running the 08:00 refresh.
 - Applying price, surface, EPC, and service-flat filters.
 - Merging by URL/canonical key.
 - Updating `firstSeen` and `lastSeen`.
