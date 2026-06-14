@@ -19,6 +19,21 @@
           House or apartment &middot; max EUR 300,000 &middot; min 50 m&sup2; &middot; EPC A&ndash;C &middot; no price-on-request
         </p>
       </details>
+
+      <details class="sync-toggle" id="sync-settings">
+        <summary class="sync-summary">
+          <span class="sync-dot" id="sync-dot" title="Not configured"></span>Sync
+        </summary>
+        <div class="sync-body">
+          <p class="sync-help">GitHub token (<code>public_repo</code> scope) syncs your rejected list across all devices via the repo. <a href="https://github.com/settings/tokens/new?scopes=public_repo&description=ImmoBro+Sync" target="_blank">Create one &rarr;</a></p>
+          <div class="sync-row">
+            <input class="sync-input" type="password" id="gh-token-input" placeholder="github_pat_&hellip;" autocomplete="off" spellcheck="false">
+            <button type="button" id="gh-token-save">Save</button>
+            <button type="button" id="gh-token-clear">Clear</button>
+          </div>
+          <p class="sync-msg" id="sync-msg"></p>
+        </div>
+      </details>
     </div>
   </header>
 
@@ -32,6 +47,29 @@
         <div class="field">
           <label for="site-filter">Website</label>
           <select id="site-filter"></select>
+        </div>
+        <div class="field">
+          <label for="type-filter">Type</label>
+          <select id="type-filter">
+            <option value="">All types</option>
+            <option value="Appartement">Apartment</option>
+            <option value="Huis">House</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort-select">Sort by</label>
+          <select id="sort-select">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="price-asc">Price: low &rarr; high</option>
+            <option value="price-desc">Price: high &rarr; low</option>
+            <option value="area-desc">Area: large &rarr; small</option>
+            <option value="area-asc">Area: small &rarr; large</option>
+          </select>
+        </div>
+        <div class="field field-action">
+          <label>&nbsp;</label>
+          <button type="button" class="favs-toggle" id="favs-toggle" aria-pressed="false">&#9733; Favourites</button>
         </div>
       </section>
       <div class="result-count" id="result-count">Loading listings…</div>
@@ -71,6 +109,7 @@
     <span class="fab-label" id="fab-label">Rejected</span>
   </button>
 
+  <script src="config.js" onerror="void 0"></script>
   <script src="app.js"></script>
 </body>
 </html>

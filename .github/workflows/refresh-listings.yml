@@ -10,6 +10,11 @@ on:
 permissions:
   contents: write
 
+# A manual dispatch overlapping the scheduled run could both push and conflict.
+concurrency:
+  group: refresh-listings
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -41,14 +46,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
 
       - name: Install dependencies
         if: steps.brussels-time.outputs.run == 'true'
         run: npm ci
 
-      - name: Install Chromium
+      - name: Cache Playwright browsers
+        id: pw-cache
         if: steps.brussels-time.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium (full, on cache miss)
+        if: steps.brussels-time.outputs.run == 'true' && steps.pw-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
+
+      - name: Install Chromium system deps (on cache hit)
+        if: steps.brussels-time.outputs.run == 'true' && steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
 
       - name: Refresh listings
         if: steps.brussels-time.outputs.run == 'true'

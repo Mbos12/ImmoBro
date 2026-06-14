@@ -18,10 +18,12 @@ Opening `index.html` directly from Finder is not recommended because browsers us
 
 - `index.html` contains only the page structure.
 - `styles.css` contains the dashboard styling.
-- `app.js` loads and renders listings, handles filters, and manages the shitlist.
+- `app.js` loads and renders listings, handles filters, sorting, favourites, and the rejected (shitlist) list.
 - `data/listings.json` contains the current normalized listing data.
+- `data/rejected.json` stores rejected listings, synced cross-device via the GitHub Contents API.
 - `data/searches.json` records reusable search criteria and source URLs/place IDs.
 - `scripts/refresh-listings.mjs` contains reusable parsing and merge logic for refreshes.
+- `config.js` (gitignored) optionally holds a GitHub token so the rejected list syncs without manual entry.
 - `docs/immo_search_pattern.md` documents the source-specific query patterns.
 
 ## How the dashboard works
@@ -30,7 +32,7 @@ The dashboard is a static GitHub Pages app. It does not have a backend server. O
 
 `data/listings.json` is the source of truth for apartments shown in the dashboard. Each listing stores the source website, URL, location, price, surface area, bedroom count, EPC label when available, first/last seen dates, status, and a remote image URL.
 
-The shitlist currently lives in browser `localStorage`. That is simple and private, but it is local to one browser/device. For cross-device shitlist sync, add a small database such as Supabase later.
+The rejected list (shitlist) and favourites live in browser `localStorage`. The rejected list additionally syncs across devices via the GitHub Contents API: provide a personal access token with `public_repo` scope — either in the **Sync** panel in the header, or in a gitignored `config.js` (`window.IMMO_CONFIG = { ghToken: "..." }`) — and every reject/restore commits `data/rejected.json` back to the repo. Without a token it falls back to `localStorage` only. Favourites remain local to one browser for now.
 
 ## Daily Refresh
 
@@ -59,12 +61,13 @@ For the public listing feed, updating JSON in GitHub is the simplest durable opt
 - There is no extra database to maintain.
 - The dashboard stays static and cheap.
 
-Supabase is a good next step for user-specific state, especially shitlist/favorites/notes across devices. It is less necessary for the listing feed itself unless the JSON file becomes too large or querying history in the UI becomes important.
+The rejected list already syncs across devices by committing `data/rejected.json` via the GitHub Contents API, so a separate database is not required for it. Supabase is still a reasonable next step if personal state grows (favourites, notes, per-user auth) or if commit-per-change to GitHub becomes noisy.
 
 Recommended split:
 
 - Listings over time: `data/listings.json` committed by GitHub Actions.
-- Personal state across devices: Supabase table for shitlist/favorites, protected by Supabase Auth.
+- Rejected list across devices: `data/rejected.json` committed via the GitHub Contents API.
+- Richer personal state later: Supabase table for favourites/notes, protected by Supabase Auth.
 
 ## Where an LLM is useful
 

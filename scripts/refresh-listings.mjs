@@ -136,9 +136,17 @@ function mergeListings(existing, fresh) {
   );
 }
 
-async function safeGoto(page, url) {
+async function safeGoto(page, url, readySelector) {
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
-  await page.waitForTimeout(6000);
+  // Wait for the actual result cards instead of a blanket 6s sleep. On a normal
+  // page this resolves in 1-2s; on a challenge page the selector never appears
+  // and we fall through to assertPageIsUsable, which reports the block.
+  if (readySelector) {
+    await page.waitForSelector(readySelector, { timeout: 8000 }).catch(() => {});
+    await page.waitForTimeout(1500); // brief settle so lazy images get their src
+  } else {
+    await page.waitForTimeout(6000);
+  }
   await assertPageIsUsable(page, url);
 }
 
@@ -154,7 +162,7 @@ async function assertPageIsUsable(page, url) {
 }
 
 async function scrapeImmoscoop(page, city, url, criteria) {
-  await safeGoto(page, url);
+  await safeGoto(page, url, 'a[href*="/te-koop/"]');
   const rows = await page.evaluate(() => {
     const compact = value => String(value || "").replace(/\s+/g, " ").trim();
     return [...document.querySelectorAll('a[href*="/te-koop/"]')]
@@ -195,7 +203,7 @@ async function scrapeImmoscoop(page, city, url, criteria) {
 }
 
 async function scrapeImmoweb(page, city, url, criteria) {
-  await safeGoto(page, url);
+  await safeGoto(page, url, "article");
   const rows = await page.evaluate(() => {
     const compact = value => String(value || "").replace(/\s+/g, " ").trim();
     return [...document.querySelectorAll("article")]
@@ -252,7 +260,7 @@ function zimmoSearchUrl(placeId, criteria) {
 async function scrapeZimmo(page, city, source, criteria) {
   const url = source.zimmoPlaceId ? zimmoSearchUrl(source.zimmoPlaceId, criteria) : source.zimmoUrl;
   if (!url) return [];
-  await safeGoto(page, url);
+  await safeGoto(page, url, ".property-item");
   const rows = await page.evaluate(() => {
     const compact = value => String(value || "").replace(/\s+/g, " ").trim();
     const seen = new Set();
@@ -300,39 +308,70 @@ async function main() {
   const config = JSON.parse(await fs.readFile(SEARCHES_PATH, "utf8"));
   const existing = JSON.parse(await fs.readFile(LISTINGS_PATH, "utf8"));
   const browser = await chromium.launch({ headless: true });
-  const fresh = [];
-  const log = [];
 
+  // Flatten every (city, source) pair into one task list. Each task is fully
+  // independent (its own browser context), so they can run concurrently.
+  const tasks = [];
   for (const search of config.searches) {
     const { city, sources } = search;
-    const before = fresh.length;
-    const sourceLog = [];
-    async function runSource(source, scrape) {
-      const sourceBefore = fresh.length;
-      const context = await browser.newContext({
-        ...BROWSER_CONTEXT,
-        viewport: { width: 1280, height: 900 }
-      });
-      const page = await context.newPage();
-      try {
-        const listings = await scrape(page);
-        fresh.push(...listings);
-        sourceLog.push({ source, ok: true, addedCandidates: fresh.length - sourceBefore });
-      } catch (error) {
-        sourceLog.push({ source, ok: false, error: String(error.message || error) });
-      } finally {
-        await page.close().catch(() => {});
-        await context.close().catch(() => {});
-      }
+    if (sources.immoscoopApartment) {
+      tasks.push({ city, source: "Immoscoop", scrape: page => scrapeImmoscoop(page, city, sources.immoscoopApartment, config.criteria) });
     }
-    if (sources.immoscoopApartment) await runSource("Immoscoop", page => scrapeImmoscoop(page, city, sources.immoscoopApartment, config.criteria));
-    if (sources.immoweb) await runSource("Immoweb", page => scrapeImmoweb(page, city, sources.immoweb, config.criteria));
-    await runSource("Zimmo", page => scrapeZimmo(page, city, sources, config.criteria));
-    const addedCandidates = fresh.length - before;
-    log.push({ city, ok: sourceLog.every(source => source.ok), addedCandidates, sources: sourceLog });
+    if (sources.immoweb) {
+      tasks.push({ city, source: "Immoweb", scrape: page => scrapeImmoweb(page, city, sources.immoweb, config.criteria) });
+    }
+    tasks.push({ city, source: "Zimmo", scrape: page => scrapeZimmo(page, city, sources, config.criteria) });
   }
 
+  async function runTask(task) {
+    const context = await browser.newContext({
+      ...BROWSER_CONTEXT,
+      viewport: { width: 1280, height: 900 }
+    });
+    const page = await context.newPage();
+    try {
+      const listings = await task.scrape(page);
+      return { ...task, ok: true, listings };
+    } catch (error) {
+      return { ...task, ok: false, error: String(error.message || error), listings: [] };
+    } finally {
+      await page.close().catch(() => {});
+      await context.close().catch(() => {});
+    }
+  }
+
+  // Capped concurrency: overlap network/wait time without hammering one domain
+  // hard enough to trip bot-detection. The task order interleaves domains, so a
+  // pool of 3 rarely hits the same site twice at once.
+  const CONCURRENCY = 3;
+  const taskResults = new Array(tasks.length);
+  let cursor = 0;
+  async function worker() {
+    while (cursor < tasks.length) {
+      const index = cursor++;
+      taskResults[index] = await runTask(tasks[index]);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, tasks.length) }, worker));
+
   await browser.close();
+
+  // Preserve fresh ordering (city, then source) and rebuild the per-city log.
+  const fresh = [];
+  for (const result of taskResults) fresh.push(...result.listings);
+
+  const log = config.searches.map(({ city }) => {
+    const cityResults = taskResults.filter(result => result.city === city);
+    const sourceLog = cityResults.map(result => result.ok
+      ? { source: result.source, ok: true, addedCandidates: result.listings.length }
+      : { source: result.source, ok: false, error: result.error });
+    return {
+      city,
+      ok: sourceLog.every(source => source.ok),
+      addedCandidates: cityResults.reduce((total, result) => total + result.listings.length, 0),
+      sources: sourceLog
+    };
+  });
 
   if (fresh.length === 0) {
     await fs.writeFile(LOG_PATH, `${JSON.stringify({ refreshedAt: new Date().toISOString(), candidates: 0, totalListings: existing.length, searches: log, skippedWrite: true }, null, 2)}\n`);
