@@ -1,0 +1,22 @@
+{
+  "refreshedAt": "2026-06-14T12:37:11.576Z",
+  "candidates": 55,
+  "totalListings": 84,
+  "searches": [
+    {
+      "city": "Genk",
+      "ok": true,
+      "addedCandidates": 15
+    },
+    {
+      "city": "Hasselt",
+      "ok": true,
+      "addedCandidates": 20
+    },
+    {
+      "city": "Leuven",
+      "ok": true,
+      "addedCandidates": 20
+    }
+  ]
+}

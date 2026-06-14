@@ -25,6 +25,7 @@ async function initDashboard() {
   const allowedEpc = new Set(["A++", "A+", "A", "B", "C"]);
   const results = rawResults.filter(result =>
     ["Appartement", "Huis"].includes(result.type) &&
+    (!result.status || result.status === "active") &&
     Number.isFinite(result.price) &&
     Number.isFinite(result.area) &&
     result.area >= 50 &&
@@ -47,6 +48,8 @@ async function initDashboard() {
     if (/Kessel-Lo/i.test(place)) return "Kessel-Lo";
     if (/Heverlee/i.test(place)) return "Heverlee";
     if (/Wijgmaal/i.test(place)) return "Wijgmaal";
+    if (/Wilsele/i.test(place)) return "Leuven";
+    if (/Kermt|Kortessem/i.test(place)) return "Hasselt";
     if (/Leuven/i.test(place)) return "Leuven";
     if (/Genk/i.test(place)) return "Genk";
     if (/Hasselt/i.test(place)) return "Hasselt";
@@ -67,7 +70,7 @@ async function initDashboard() {
   function addressFromPlace(place) {
     const firstPart = String(place || "").split(",")[0].trim();
     const normalized = normalizeText(firstPart);
-    if (!normalized || ["genk", "leuven", "heverlee", "kessel lo", "wijgmaal", "hasselt", "3500 hasselt"].includes(normalized)) {
+    if (!normalized || ["genk", "leuven", "heverlee", "kessel lo", "wijgmaal", "wilsele", "hasselt", "kermt", "kortessem", "3500 hasselt"].includes(normalized)) {
       return "";
     }
     return firstPart;

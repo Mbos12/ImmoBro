@@ -35,6 +35,14 @@
         "immoscoopApartment": "https://www.immoscoop.be/zoeken/te-koop/hasselt/appartement?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
         "zimmoPlaceId": 2475
       }
+    },
+    {
+      "city": "Leuven",
+      "sources": {
+        "immoweb": "https://www.immoweb.be/nl/zoeken/appartement/te-koop/leuven/3000?countries=BE&maxPrice=300000&page=1&orderBy=newest",
+        "immoscoopApartment": "https://www.immoscoop.be/zoeken/te-koop/leuven/appartement?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
+        "zimmoUrl": "https://www.zimmo.be/nl/leuven-3000/te-koop/appartement/"
+      }
     }
   ]
 }

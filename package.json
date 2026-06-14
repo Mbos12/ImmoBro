@@ -1,0 +1,13 @@
+{
+  "name": "immobro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "refresh": "node scripts/refresh-listings.mjs",
+    "serve": "python3 -m http.server 8765"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.54.0"
+  }
+}
