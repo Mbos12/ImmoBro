@@ -1,0 +1,40 @@
+{
+  "criteria": {
+    "transaction": "for_sale",
+    "propertyTypes": [
+      "house",
+      "apartment"
+    ],
+    "maxPriceEur": 300000,
+    "minLivingAreaM2": 50,
+    "epcLabels": [
+      "A++",
+      "A+",
+      "A",
+      "B",
+      "C"
+    ],
+    "includePriceOnRequest": false,
+    "includeUnknownSurface": false,
+    "sort": "newest"
+  },
+  "searches": [
+    {
+      "city": "Genk",
+      "sources": {
+        "immoweb": "https://www.immoweb.be/nl/zoeken/huis-en-appartement/te-koop/genk/3600?countries=BE&maxPrice=300000&page=1&orderBy=newest",
+        "immoscoopApartment": "https://www.immoscoop.be/zoeken/te-koop/genk/appartement?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
+        "immoscoopHouse": "https://www.immoscoop.be/zoeken/te-koop/genk/woonhuis?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
+        "zimmoPlaceId": 2460
+      }
+    },
+    {
+      "city": "Hasselt",
+      "sources": {
+        "immoweb": "https://www.immoweb.be/nl/zoeken/appartement/te-koop/hasselt/3500?countries=BE&maxPrice=300000&page=1&orderBy=newest",
+        "immoscoopApartment": "https://www.immoscoop.be/zoeken/te-koop/hasselt/appartement?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
+        "zimmoPlaceId": 2475
+      }
+    }
+  ]
+}

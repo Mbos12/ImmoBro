@@ -1,0 +1,274 @@
+:root {
+  --ink: #1b2430;
+  --muted: #5d6878;
+  --line: #dbe2ea;
+  --paper: #f6f8fb;
+  --panel: #ffffff;
+  --immoweb: #d83a4c;
+  --zimmo: #20766f;
+  --immoscoop: #d2891d;
+  --house: #6b5dd3;
+  --apt: #1d7890;
+  --project: #8f5b9a;
+  --unknown: #8c97a6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  padding: 28px 32px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+main {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 22px auto 36px;
+}
+
+.panel,
+.listing {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) minmax(160px, 220px) 1fr;
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 18px;
+  padding: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+select {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 10px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.result-count {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: right;
+}
+
+.listings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.listing {
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.listing.shitlisted {
+  opacity: .68;
+}
+
+.listing-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #edf1f6;
+}
+
+.listing-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.site {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.price {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.type {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.type a {
+  color: var(--ink);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.chip {
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fafbfc;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+button {
+  min-height: 36px;
+  padding: 7px 10px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f2f5f8;
+}
+
+.danger {
+  color: #9c2432;
+  border-color: #e5bbc1;
+  background: #fff8f9;
+}
+
+.shitlist-panel {
+  margin: 0 0 18px;
+  padding: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.shitlist-panel summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.shitlist-items {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.shitlist-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fafbfc;
+  font-size: 13px;
+}
+
+.shitlist-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.empty {
+  display: none;
+  padding: 24px;
+  color: var(--muted);
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .controls,
+  .listings {
+    grid-template-columns: 1fr;
+  }
+
+  .result-count {
+    text-align: left;
+  }
+
+  header {
+    padding: 22px 18px 16px;
+  }
+
+  main {
+    width: min(100vw - 24px, 760px);
+  }
+}

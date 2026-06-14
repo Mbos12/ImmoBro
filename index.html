@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ImmoBro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>ImmoBro</h1>
+    <p class="subtitle">Standardized criteria: house or apartment, max EUR 300,000, min 50 m2, EPC A-C where exposed by the source, and no price-on-request listings.</p>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Listing filters">
+      <div class="field">
+        <label for="city-filter">City</label>
+        <select id="city-filter"></select>
+      </div>
+      <div class="field">
+        <label for="site-filter">Website</label>
+        <select id="site-filter"></select>
+      </div>
+      <div class="result-count" id="result-count">Loading listings...</div>
+    </section>
+
+    <details class="shitlist-panel" id="shitlist-panel">
+      <summary id="shitlist-summary">Shitlist: 0 hidden listings</summary>
+      <p class="shitlist-note">Matching uses normalized address + price first, then address + area/bedrooms, with a stricter city/type/price/area fallback for listings where the source does not expose an address.</p>
+      <div class="shitlist-items" id="shitlist-items"></div>
+    </details>
+
+    <section class="listings" id="listings"></section>
+    <p class="empty" id="empty-state">No listings match the selected filters.</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
