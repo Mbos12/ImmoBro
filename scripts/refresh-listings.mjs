@@ -94,7 +94,7 @@ function mergeListings(existing, fresh) {
   for (const listing of existing) {
     const derivedCity = cityFromPlace(listing.place);
     const city = derivedCity === "Other" ? listing.city || derivedCity : derivedCity;
-    const key = listing.canonicalKey || canonicalKey({ ...listing, city });
+    const key = canonicalKey({ ...listing, city });
     byKey.set(key, {
       ...listing,
       city,
