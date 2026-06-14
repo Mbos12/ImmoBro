@@ -1,27 +1,95 @@
 {
-  "refreshedAt": "2026-06-14T16:18:35.148Z",
-  "candidates": 62,
-  "totalListings": 91,
+  "refreshedAt": "2026-06-14T16:40:24.914Z",
+  "candidates": 108,
+  "totalListings": 115,
   "searches": [
     {
       "city": "Genk",
       "ok": true,
-      "addedCandidates": 15
+      "addedCandidates": 31,
+      "sources": [
+        {
+          "source": "Immoscoop",
+          "ok": true,
+          "addedCandidates": 15
+        },
+        {
+          "source": "Immoweb",
+          "ok": true,
+          "addedCandidates": 0
+        },
+        {
+          "source": "Zimmo",
+          "ok": true,
+          "addedCandidates": 16
+        }
+      ]
     },
     {
       "city": "Hasselt",
       "ok": true,
-      "addedCandidates": 20
+      "addedCandidates": 41,
+      "sources": [
+        {
+          "source": "Immoscoop",
+          "ok": true,
+          "addedCandidates": 20
+        },
+        {
+          "source": "Immoweb",
+          "ok": true,
+          "addedCandidates": 2
+        },
+        {
+          "source": "Zimmo",
+          "ok": true,
+          "addedCandidates": 19
+        }
+      ]
     },
     {
       "city": "Leuven",
       "ok": true,
-      "addedCandidates": 20
+      "addedCandidates": 20,
+      "sources": [
+        {
+          "source": "Immoscoop",
+          "ok": true,
+          "addedCandidates": 20
+        },
+        {
+          "source": "Immoweb",
+          "ok": true,
+          "addedCandidates": 0
+        },
+        {
+          "source": "Zimmo",
+          "ok": true,
+          "addedCandidates": 0
+        }
+      ]
     },
     {
       "city": "Diest",
       "ok": true,
-      "addedCandidates": 7
+      "addedCandidates": 16,
+      "sources": [
+        {
+          "source": "Immoscoop",
+          "ok": true,
+          "addedCandidates": 7
+        },
+        {
+          "source": "Immoweb",
+          "ok": true,
+          "addedCandidates": 7
+        },
+        {
+          "source": "Zimmo",
+          "ok": true,
+          "addedCandidates": 2
+        }
+      ]
     }
   ]
 }

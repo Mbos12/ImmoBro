@@ -6,6 +6,14 @@ const SEARCHES_PATH = new URL("../data/searches.json", import.meta.url);
 const LOG_PATH = new URL("../data/refresh-log.json", import.meta.url);
 const TODAY = new Date().toISOString().slice(0, 10);
 const ALLOWED_EPC = new Set(["A++", "A+", "A", "B", "C"]);
+const BROWSER_CONTEXT = {
+  userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+  locale: "nl-BE",
+  timezoneId: "Europe/Brussels",
+  extraHTTPHeaders: {
+    "Accept-Language": "nl-BE,nl;q=0.9,en;q=0.8"
+  }
+};
 
 function compact(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
@@ -131,6 +139,18 @@ function mergeListings(existing, fresh) {
 async function safeGoto(page, url) {
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
   await page.waitForTimeout(6000);
+  await assertPageIsUsable(page, url);
+}
+
+async function assertPageIsUsable(page, url) {
+  const state = await page.evaluate(() => ({
+    title: document.title,
+    body: String(document.body?.innerText || "").slice(0, 1200)
+  }));
+  const text = `${state.title} ${state.body}`;
+  if (/just a moment|are you a robot|captcha|security verification|protect against malicious bots/i.test(text)) {
+    throw new Error(`Blocked or challenged while loading ${url}: ${compact(state.title || state.body).slice(0, 160)}`);
+  }
 }
 
 async function scrapeImmoscoop(page, city, url, criteria) {
@@ -253,7 +273,7 @@ async function scrapeZimmo(page, city, source, criteria) {
       .filter(Boolean);
   });
 
-  return rows.map(row => {
+  const mapped = rows.map(row => {
     const price = numericPrice(row.text);
     const area = numericArea(row.text);
     const beds = Number((row.text.match(/m²\s*(\d+)\b/i) || [])[1]) || null;
@@ -271,29 +291,45 @@ async function scrapeZimmo(page, city, source, criteria) {
       url: row.href,
       image: row.image
     };
-  }).filter(listing => isEligible(listing, criteria) && isInSearchArea(listing, city));
+  });
+  const filtered = mapped.filter(listing => isEligible(listing, criteria) && isInSearchArea(listing, city));
+  return filtered;
 }
 
 async function main() {
   const config = JSON.parse(await fs.readFile(SEARCHES_PATH, "utf8"));
   const existing = JSON.parse(await fs.readFile(LISTINGS_PATH, "utf8"));
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   const fresh = [];
   const log = [];
 
   for (const search of config.searches) {
     const { city, sources } = search;
     const before = fresh.length;
-    try {
-      if (sources.immoscoopApartment) fresh.push(...await scrapeImmoscoop(page, city, sources.immoscoopApartment, config.criteria));
-      if (sources.immoweb) fresh.push(...await scrapeImmoweb(page, city, sources.immoweb, config.criteria));
-      fresh.push(...await scrapeZimmo(page, city, sources, config.criteria));
-      const addedCandidates = fresh.length - before;
-      log.push({ city, ok: true, addedCandidates });
-    } catch (error) {
-      log.push({ city, ok: false, error: String(error.message || error) });
+    const sourceLog = [];
+    async function runSource(source, scrape) {
+      const sourceBefore = fresh.length;
+      const context = await browser.newContext({
+        ...BROWSER_CONTEXT,
+        viewport: { width: 1280, height: 900 }
+      });
+      const page = await context.newPage();
+      try {
+        const listings = await scrape(page);
+        fresh.push(...listings);
+        sourceLog.push({ source, ok: true, addedCandidates: fresh.length - sourceBefore });
+      } catch (error) {
+        sourceLog.push({ source, ok: false, error: String(error.message || error) });
+      } finally {
+        await page.close().catch(() => {});
+        await context.close().catch(() => {});
+      }
     }
+    if (sources.immoscoopApartment) await runSource("Immoscoop", page => scrapeImmoscoop(page, city, sources.immoscoopApartment, config.criteria));
+    if (sources.immoweb) await runSource("Immoweb", page => scrapeImmoweb(page, city, sources.immoweb, config.criteria));
+    await runSource("Zimmo", page => scrapeZimmo(page, city, sources, config.criteria));
+    const addedCandidates = fresh.length - before;
+    log.push({ city, ok: sourceLog.every(source => source.ok), addedCandidates, sources: sourceLog });
   }
 
   await browser.close();
