@@ -22,7 +22,6 @@ Opening `index.html` directly from Finder is not recommended because browsers us
 - `data/listings.json` contains the current normalized listing data.
 - `data/searches.json` records reusable search criteria and source URLs/place IDs.
 - `scripts/refresh-listings.mjs` refreshes listings from the configured sources.
-- `.github/workflows/refresh-listings.yml` runs the refresh job twice a day.
 - `docs/immo_search_pattern.md` documents the source-specific query patterns.
 
 ## How the dashboard works
@@ -35,7 +34,7 @@ The shitlist currently lives in browser `localStorage`. That is simple and priva
 
 ## Daily refresh
 
-The GitHub Action runs at 08:00 and 20:00 Belgium time. GitHub cron only supports UTC, so the workflow triggers at the possible UTC hours and then checks `Europe/Brussels` before doing work.
+The refresh is scheduled as a Codex automation at 08:00 and 20:00 Belgium time. The automation runs in the local workspace, executes the refresh script, commits changed JSON files, and pushes those data updates to GitHub.
 
 The refresh flow is:
 
@@ -62,7 +61,7 @@ Supabase is a good next step for user-specific state, especially shitlist/favori
 
 Recommended split:
 
-- Listings over time: `data/listings.json` committed by GitHub Actions.
+- Listings over time: `data/listings.json` committed by the Codex automation.
 - Personal state across devices: Supabase table for shitlist/favorites, protected by Supabase Auth.
 
 ## Where an LLM is useful
