@@ -8,32 +8,68 @@
 </head>
 <body>
   <header>
-    <h1>ImmoBro</h1>
-    <p class="subtitle">Standardized criteria: house or apartment, max EUR 300,000, min 50 m2, EPC A-C where exposed by the source, and no price-on-request listings.</p>
+    <div class="header-inner">
+      <div class="brand">
+        <h1>ImmoBro</h1>
+        <span class="brand-sub">Property Tracker</span>
+      </div>
+      <details class="criteria-toggle">
+        <summary>Search criteria</summary>
+        <p class="criteria-text">
+          House or apartment &middot; max EUR 300,000 &middot; min 50 m&sup2; &middot; EPC A&ndash;C &middot; no price-on-request
+        </p>
+      </details>
+    </div>
   </header>
 
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <section class="controls" aria-label="Listing filters">
+        <div class="field">
+          <label for="city-filter">City</label>
+          <select id="city-filter"></select>
+        </div>
+        <div class="field">
+          <label for="site-filter">Website</label>
+          <select id="site-filter"></select>
+        </div>
+      </section>
+      <div class="result-count" id="result-count">Loading listings…</div>
+    </div>
+  </div>
+
   <main>
-    <section class="controls" aria-label="Listing filters">
-      <div class="field">
-        <label for="city-filter">City</label>
-        <select id="city-filter"></select>
+    <div class="content-layout">
+      <div class="listings-col">
+        <section class="listings" id="listings"></section>
+        <p class="empty" id="empty-state">No listings match the selected filters.</p>
       </div>
-      <div class="field">
-        <label for="site-filter">Website</label>
-        <select id="site-filter"></select>
-      </div>
-      <div class="result-count" id="result-count">Loading listings...</div>
-    </section>
 
-    <details class="shitlist-panel" id="shitlist-panel">
-      <summary id="shitlist-summary">Shitlist: 0 hidden listings</summary>
-      <p class="shitlist-note">Matching uses normalized address + price first, then address + area/bedrooms, with a stricter city/type/price/area fallback for listings where the source does not expose an address.</p>
-      <div class="shitlist-items" id="shitlist-items"></div>
-    </details>
-
-    <section class="listings" id="listings"></section>
-    <p class="empty" id="empty-state">No listings match the selected filters.</p>
+      <aside class="shitlist-sidebar" id="shitlist-panel">
+        <div class="shitlist-hd">
+          <div class="shitlist-hd-top">
+            <span class="shitlist-icon" aria-hidden="true">&#10005;</span>
+            <h2 class="shitlist-title">Rejected</h2>
+            <button class="shitlist-close" id="shitlist-close" aria-label="Close">&#10005;</button>
+          </div>
+          <p class="shitlist-meta" id="shitlist-summary">0 rules &middot; 0 hidden</p>
+        </div>
+        <div class="shitlist-body">
+          <p class="shitlist-note">Hidden listings persist across sessions. Matching uses address + price, then shape, then a strict city/type fallback.</p>
+          <div class="shitlist-items" id="shitlist-items">
+            <div class="shitlist-empty">Nothing rejected yet.</div>
+          </div>
+        </div>
+      </aside>
+    </div>
   </main>
+
+  <div class="shitlist-backdrop" id="shitlist-backdrop"></div>
+
+  <button class="shitlist-fab" id="shitlist-fab" aria-label="Show rejected listings">
+    <span class="fab-icon" aria-hidden="true">&#10005;</span>
+    <span class="fab-label" id="fab-label">Rejected</span>
+  </button>
 
   <script src="app.js"></script>
 </body>

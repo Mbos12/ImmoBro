@@ -122,7 +122,25 @@ async function initDashboard() {
   const emptyState = document.getElementById("empty-state");
   const shitlistSummary = document.getElementById("shitlist-summary");
   const shitlistItems = document.getElementById("shitlist-items");
+  const shitlistPanel = document.getElementById("shitlist-panel");
+  const shitlistBackdrop = document.getElementById("shitlist-backdrop");
+  const fabEl = document.getElementById("shitlist-fab");
+  const fabLabel = document.getElementById("fab-label");
   const shitlistStorageKey = "propertySearchShitlist.v1";
+
+  function openShitlistDrawer() {
+    shitlistPanel.classList.add("is-open");
+    shitlistBackdrop.classList.add("is-open");
+  }
+
+  function closeShitlistDrawer() {
+    shitlistPanel.classList.remove("is-open");
+    shitlistBackdrop.classList.remove("is-open");
+  }
+
+  document.getElementById("shitlist-close").addEventListener("click", closeShitlistDrawer);
+  shitlistBackdrop.addEventListener("click", closeShitlistDrawer);
+  fabEl.addEventListener("click", openShitlistDrawer);
   let shitlist = loadShitlist();
   
   function loadShitlist() {
@@ -201,16 +219,18 @@ async function initDashboard() {
     );
   
     resultCountEl.textContent = `${visible.length} of ${activeResults.length} listings shown`;
-    shitlistSummary.textContent = `Shitlist: ${shitlist.length} saved ${shitlist.length === 1 ? "rule" : "rules"}, ${hiddenResults.length} hidden ${hiddenResults.length === 1 ? "listing" : "listings"}`;
+    shitlistSummary.textContent = `${shitlist.length} ${shitlist.length === 1 ? "rule" : "rules"} · ${hiddenResults.length} hidden`;
+    fabLabel.textContent = hiddenResults.length > 0 ? `${hiddenResults.length} hidden` : "Rejected";
+    fabEl.classList.toggle("has-items", hiddenResults.length > 0);
     shitlistItems.innerHTML = shitlist.length ? shitlist.map(item => `
       <div class="shitlist-item">
         <div>
-          <strong>${escapeHtml(item.label)}</strong><br>
+          <strong>${escapeHtml(item.label)}</strong>
           <span>${escapeHtml(item.site)} · ${item.keys.length} match keys</span>
         </div>
-        <button type="button" data-restore-shit="${escapeHtml(item.id)}">Restore</button>
+        <button type="button" class="restore" data-restore-shit="${escapeHtml(item.id)}">Restore</button>
       </div>
-    `).join("") : `<div class="shitlist-note">Nothing has been shitlisted yet.</div>`;
+    `).join("") : `<div class="shitlist-empty">Nothing rejected yet.</div>`;
     emptyState.style.display = visible.length ? "none" : "block";
     listingsEl.innerHTML = visible.map(d => `
       <article class="listing">
@@ -230,7 +250,7 @@ async function initDashboard() {
           ${d.epc ? `<span class="chip">EPC ${d.epc}</span>` : ""}
         </div>
         <div class="actions">
-          <button type="button" class="danger" data-shitlist="${escapeHtml(d.id)}">Shitlist</button>
+          <button type="button" class="danger" data-shitlist="${escapeHtml(d.id)}">Reject</button>
         </div>
       </article>
     `).join("");
