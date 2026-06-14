@@ -1,7 +1,7 @@
 {
-  "refreshedAt": "2026-06-14T16:07:38.749Z",
-  "candidates": 61,
-  "totalListings": 91,
+  "refreshedAt": "2026-06-14T16:14:42.711Z",
+  "candidates": 62,
+  "totalListings": 92,
   "searches": [
     {
       "city": "Genk",
@@ -21,7 +21,7 @@
     {
       "city": "Diest",
       "ok": true,
-      "addedCandidates": 6
+      "addedCandidates": 7
     }
   ]
 }
