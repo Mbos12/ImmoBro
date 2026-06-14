@@ -43,6 +43,14 @@
         "immoscoopApartment": "https://www.immoscoop.be/zoeken/te-koop/leuven/appartement?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
         "zimmoUrl": "https://www.zimmo.be/nl/leuven-3000/te-koop/appartement/"
       }
+    },
+    {
+      "city": "Diest",
+      "sources": {
+        "immoweb": "https://www.immoweb.be/nl/zoeken/appartement/te-koop/diest/3290?countries=BE&maxPrice=300000&page=1&orderBy=newest",
+        "immoscoopApartment": "https://www.immoscoop.be/zoeken/te-koop/diest/appartement?maxPrice=300000&minLivableSurfaceArea=50&epcLabels=A%2B%2B%2CA%2B%2CA&epcLabels=B&epcLabels=C",
+        "zimmoUrl": "https://www.zimmo.be/nl/diest-3290/te-koop/appartement/"
+      }
     }
   ]
 }

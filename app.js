@@ -51,6 +51,7 @@ async function initDashboard() {
     if (/Wilsele/i.test(place)) return "Leuven";
     if (/Kermt|Kortessem/i.test(place)) return "Hasselt";
     if (/Leuven/i.test(place)) return "Leuven";
+    if (/Diest/i.test(place)) return "Diest";
     if (/Genk/i.test(place)) return "Genk";
     if (/Hasselt/i.test(place)) return "Hasselt";
     return "Other";
@@ -70,7 +71,7 @@ async function initDashboard() {
   function addressFromPlace(place) {
     const firstPart = String(place || "").split(",")[0].trim();
     const normalized = normalizeText(firstPart);
-    if (!normalized || ["genk", "leuven", "heverlee", "kessel lo", "wijgmaal", "wilsele", "hasselt", "kermt", "kortessem", "3500 hasselt"].includes(normalized)) {
+    if (!normalized || ["genk", "leuven", "heverlee", "kessel lo", "wijgmaal", "wilsele", "hasselt", "kermt", "kortessem", "diest", "3500 hasselt", "3290 diest"].includes(normalized)) {
       return "";
     }
     return firstPart;

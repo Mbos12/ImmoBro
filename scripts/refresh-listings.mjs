@@ -43,6 +43,7 @@ function cityFromPlace(place) {
   if (/Wilsele/i.test(place)) return "Leuven";
   if (/Kermt|Kortessem/i.test(place)) return "Hasselt";
   if (/Leuven/i.test(place)) return "Leuven";
+  if (/Diest/i.test(place)) return "Diest";
   if (/Genk/i.test(place)) return "Genk";
   if (/Hasselt/i.test(place)) return "Hasselt";
   return "Other";
@@ -51,7 +52,7 @@ function cityFromPlace(place) {
 function addressFromPlace(place) {
   const firstPart = String(place || "").split(",")[0].trim();
   const normalized = normalizeText(firstPart);
-  const cityOnly = ["genk", "leuven", "heverlee", "kessel lo", "wijgmaal", "wilsele", "hasselt", "kermt", "kortessem", "3500 hasselt", "3000 leuven", "3600 genk"];
+  const cityOnly = ["genk", "leuven", "heverlee", "kessel lo", "wijgmaal", "wilsele", "hasselt", "kermt", "kortessem", "diest", "3500 hasselt", "3000 leuven", "3600 genk", "3290 diest"];
   return !normalized || cityOnly.includes(normalized) ? "" : firstPart;
 }
 
