@@ -178,17 +178,19 @@ async function scrapeImmoweb(page, city, url, criteria) {
   await safeGoto(page, url);
   const rows = await page.evaluate(() => {
     const compact = value => String(value || "").replace(/\s+/g, " ").trim();
-    return [...document.querySelectorAll('a.card__title-link[href*="/zoekertje/"]')]
-      .map(anchor => {
-        const article = anchor.closest("article");
+    return [...document.querySelectorAll("article")]
+      .map(article => {
+        const anchor = article.querySelector('a[href*="/zoekertje/"][href*="/appartement/"]');
+        if (!anchor) return null;
         const href = anchor.href.split("?")[0];
-        const img = article?.querySelector("img");
+        const img = article.querySelector("img");
         return {
           href,
-          text: compact(article?.innerText || anchor.innerText),
+          text: compact(article.innerText || anchor.innerText),
           image: img?.currentSrc || img?.src || img?.getAttribute("src") || ""
         };
       })
+      .filter(Boolean)
       .filter(row => /\/appartement\//.test(row.href));
   });
 
@@ -233,16 +235,22 @@ async function scrapeZimmo(page, city, source, criteria) {
   await safeGoto(page, url);
   const rows = await page.evaluate(() => {
     const compact = value => String(value || "").replace(/\s+/g, " ").trim();
-    return [...document.querySelectorAll('a.property-item_link[href*="/te-koop/appartement/"]')]
-      .map(anchor => {
-        const card = anchor.parentElement?.closest(".property-item");
-        const img = card?.querySelector("img");
+    const seen = new Set();
+    return [...document.querySelectorAll(".property-item")]
+      .map(card => {
+        const anchor = card.querySelector('a[href*="/te-koop/appartement/"]');
+        if (!anchor) return null;
+        const href = anchor.href.split("?")[0].replace(/\/?$/, "/");
+        if (!/\/te-koop\/appartement\/[^/?#]+\/$/.test(new URL(href).pathname) || seen.has(href)) return null;
+        seen.add(href);
+        const img = card.querySelector("img");
         return {
-          href: anchor.href.split("?")[0].replace(/\/?$/, "/"),
-          text: compact(card?.innerText || ""),
+          href,
+          text: compact(card.innerText || ""),
           image: img?.currentSrc || img?.src || img?.getAttribute("src") || ""
         };
-      });
+      })
+      .filter(Boolean);
   });
 
   return rows.map(row => {
