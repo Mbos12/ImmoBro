@@ -77,6 +77,17 @@ function isEligible(listing, criteria) {
   return true;
 }
 
+function isInSearchArea(listing, searchCity) {
+  const listingCity = cityFromPlace(listing.place);
+  const cityGroups = {
+    Leuven: new Set(["Leuven", "Heverlee", "Kessel-Lo", "Wijgmaal"]),
+    Hasselt: new Set(["Hasselt"]),
+    Genk: new Set(["Genk"]),
+    Diest: new Set(["Diest"])
+  };
+  return (cityGroups[searchCity] || new Set([searchCity])).has(listingCity);
+}
+
 function mergeListings(existing, fresh) {
   const byKey = new Map();
 
@@ -160,7 +171,7 @@ async function scrapeImmoscoop(page, city, url, criteria) {
       url: row.href,
       image: row.image
     };
-  }).filter(listing => isEligible(listing, criteria));
+  }).filter(listing => isEligible(listing, criteria) && isInSearchArea(listing, city));
 }
 
 async function scrapeImmoweb(page, city, url, criteria) {
@@ -198,7 +209,7 @@ async function scrapeImmoweb(page, city, url, criteria) {
       url: row.href,
       image: row.image
     };
-  }).filter(listing => isEligible(listing, criteria));
+  }).filter(listing => isEligible(listing, criteria) && isInSearchArea(listing, city));
 }
 
 function zimmoSearchUrl(placeId, criteria) {
@@ -252,7 +263,7 @@ async function scrapeZimmo(page, city, source, criteria) {
       url: row.href,
       image: row.image
     };
-  }).filter(listing => isEligible(listing, criteria));
+  }).filter(listing => isEligible(listing, criteria) && isInSearchArea(listing, city));
 }
 
 async function main() {
