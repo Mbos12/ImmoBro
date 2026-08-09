@@ -1,7 +1,7 @@
 {
-  "refreshedAt": "2026-08-08T06:37:25.074Z",
-  "candidates": 56,
-  "totalListings": 140,
+  "refreshedAt": "2026-08-09T06:40:51.791Z",
+  "candidates": 57,
+  "totalListings": 141,
   "searches": [
     {
       "city": "Genk",
@@ -50,12 +50,12 @@
     {
       "city": "Leuven",
       "ok": true,
-      "addedCandidates": 12,
+      "addedCandidates": 13,
       "sources": [
         {
           "source": "Immoscoop",
           "ok": true,
-          "addedCandidates": 12
+          "addedCandidates": 13
         },
         {
           "source": "Immoweb",
