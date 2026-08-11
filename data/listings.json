@@ -14,7 +14,7 @@
     "city": "Diest",
     "canonicalKey": "addr-price:diest:eduard robeynslaan 76:280000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -32,7 +32,7 @@
     "city": "Diest",
     "canonicalKey": "addr-price:diest:schaffensestraat 74:280000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -50,7 +50,7 @@
     "city": "Diest",
     "canonicalKey": "addr-price:diest:hasseltsestraat 58:280000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -68,7 +68,7 @@
     "city": "Diest",
     "canonicalKey": "addr-price:diest:wijngaardstraat 2:235000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -86,7 +86,7 @@
     "city": "Diest",
     "canonicalKey": "addr-price:diest:michel theysstraat 91:235000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -104,7 +104,7 @@
     "city": "Diest",
     "canonicalKey": "addr-price:diest:delphine alenuslaan 19:220000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active",
     "daysOnline": 6
   },
@@ -313,7 +313,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:onderwijslaan 103:299000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -331,7 +331,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:reinpadstraat 13:285000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -349,7 +349,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:stalenstraat 243:281000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -386,7 +386,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:centrumlaan 12:280000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -404,7 +404,25 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:zonneweeldelaan 17:279000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
+    "status": "active"
+  },
+  {
+    "site": "Immoscoop",
+    "type": "Appartement",
+    "price": 266000,
+    "priceLabel": "EUR 266,000",
+    "area": 115,
+    "beds": 2,
+    "baths": 1,
+    "epc": "C",
+    "place": "Reinpadstraat 21, 3600 Genk",
+    "url": "https://www.immoscoop.be/te-koop/3600-genk/1192653",
+    "image": "https://images.immoscoop.be/cp-abac28584ec253ae4afa035544075dba.jpg",
+    "city": "Genk",
+    "canonicalKey": "addr-price:genk:reinpadstraat 21:266000",
+    "firstSeen": "2026-08-11",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -440,7 +458,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:andre dumontlaan 210:260000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -458,7 +476,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:zonneweeldelaan 23:259000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -512,7 +530,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:zonneweeldelaan 23:249000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -530,7 +548,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:sint martinusplein 9:245000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -566,7 +584,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:sint martinusplein 9:230000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -620,7 +638,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:europalaan 108:205000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -638,7 +656,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:busweg 14:172500",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -656,7 +674,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:busweg 16:155000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -692,7 +710,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:molenstraat 1:149000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -710,7 +728,7 @@
     "city": "Genk",
     "canonicalKey": "addr-price:genk:bornstraat 2:149000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1231,7 +1249,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:salamanderstraat 4:299000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1249,7 +1267,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:torenplein 2:299000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1267,7 +1285,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:h van veldekesingel 9:299000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1285,7 +1303,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:de schiervellaan 21:295000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1303,7 +1321,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:de schiervellaan:295000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1339,7 +1357,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:casterstraat 70:295000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active",
     "baths": 1,
     "epc": "B"
@@ -1397,7 +1415,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:bosstraat 48:285000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1415,7 +1433,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:demerstraat 24:279000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active",
     "baths": 1,
     "epc": "B"
@@ -1471,7 +1489,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:ursulinenhof 7:269000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1525,7 +1543,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:dorpsstraat 12:260000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1545,7 +1563,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:ursulinenhof 3:250000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1563,7 +1581,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:torenplein 1:249000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1581,7 +1599,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:herkenrodesingel 23:249000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1655,7 +1673,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:kempische steenweg 153:225000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1673,7 +1691,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:plantenstraat 4:225000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1709,7 +1727,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:bosstraat 13:220000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active",
     "daysOnline": 20
   },
@@ -1730,7 +1748,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:de gerlachestraat 15:219000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1748,7 +1766,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:klokkehofstraat 8:210000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -1784,7 +1802,7 @@
     "city": "Hasselt",
     "canonicalKey": "addr-price:hasselt:havenstraat 10:189000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2121,7 +2139,7 @@
     "city": "Heverlee",
     "canonicalKey": "addr-price:heverlee:tervuursesteenweg 290:225000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2158,7 +2176,7 @@
     "city": "Heverlee",
     "canonicalKey": "addr-price:heverlee:populierenlaan 10:155000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2196,7 +2214,7 @@
     "city": "Heverlee",
     "canonicalKey": "addr-price:heverlee:populierenlaan 10:98000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2288,7 +2306,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:fonteinstraat 139:295000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2306,7 +2324,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:stapelhuisplein 3:295000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2324,7 +2342,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:tiensevest 106:295000",
     "firstSeen": "2026-08-09",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2342,7 +2360,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:schotelveldstraat 8:285000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2379,7 +2397,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:strijdersstraat 66:249000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2436,7 +2454,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:ravenstraat 86:229000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2454,7 +2472,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:de drie kreeften 7:220000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2473,7 +2491,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:populierenlaan 10:99000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2492,7 +2510,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:populierenlaan 10:95000",
     "firstSeen": "2026-06-14",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
@@ -2510,7 +2528,7 @@
     "city": "Leuven",
     "canonicalKey": "addr-price:leuven:populierenlaan 10:80000",
     "firstSeen": "2026-08-08",
-    "lastSeen": "2026-08-09",
+    "lastSeen": "2026-08-11",
     "status": "active"
   },
   {
