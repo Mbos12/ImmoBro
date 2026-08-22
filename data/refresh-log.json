@@ -1,7 +1,7 @@
 {
-  "refreshedAt": "2026-08-21T06:31:42.475Z",
-  "candidates": 57,
-  "totalListings": 153,
+  "refreshedAt": "2026-08-22T06:24:41.950Z",
+  "candidates": 59,
+  "totalListings": 155,
   "searches": [
     {
       "city": "Genk",
@@ -50,12 +50,12 @@
     {
       "city": "Leuven",
       "ok": true,
-      "addedCandidates": 16,
+      "addedCandidates": 17,
       "sources": [
         {
           "source": "Immoscoop",
           "ok": true,
-          "addedCandidates": 15
+          "addedCandidates": 16
         },
         {
           "source": "Immoweb",
@@ -72,12 +72,12 @@
     {
       "city": "Diest",
       "ok": true,
-      "addedCandidates": 4,
+      "addedCandidates": 5,
       "sources": [
         {
           "source": "Immoscoop",
           "ok": true,
-          "addedCandidates": 4
+          "addedCandidates": 5
         },
         {
           "source": "Immoweb",
